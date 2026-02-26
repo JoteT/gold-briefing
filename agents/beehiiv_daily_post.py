@@ -261,33 +261,101 @@ CURRENCY_NAMES = {
 
 BASE_STYLE = """
 <style>
+  * { box-sizing: border-box; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-         color: #111827; line-height: 1.6; }
-  h2 { font-size: 1.3rem; font-weight: 800; color: #111827; margin: 1.4em 0 0.4em; }
-  h3 { font-size: 1.05rem; font-weight: 700; color: #374151; margin: 1.2em 0 0.4em; }
-  p  { margin: 0.5em 0 0.8em; font-size: 0.95rem; }
-  .snapshot-box { background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px;
-                  padding: 16px 20px; margin: 10px 0; }
-  .snapshot-price { font-size: 2rem; font-weight: 800; color: #111827; }
-  .tag { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase;
-         letter-spacing: .08em; color: #92400e; background: #fef3c7;
-         border-radius: 4px; padding: 2px 8px; margin-bottom: 6px; }
-  table.data { width: 100%; border-collapse: collapse; margin: 8px 0; }
-  table.data th { font-size: 11px; color: #9ca3af; font-weight: 700; text-transform: uppercase;
-                  padding: 6px 12px; border-bottom: 2px solid #e5e7eb; text-align: left; }
-  table.data td { padding: 9px 12px; border-bottom: 1px solid #f3f4f6; font-size: 0.9rem; }
-  table.data tr:last-child td { border-bottom: none; }
-  .up   { color: #16a34a; font-weight: 700; }
-  .down { color: #dc2626; font-weight: 700; }
-  .cta  { background: #1c1917; color: #fff; border-radius: 8px; padding: 14px 20px; margin: 16px 0; }
-  .cta p { color: #e7e5e4; margin: 0; font-size: 0.9rem; }
-  .pill { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 11px;
-          font-weight: 700; }
-  .pill-buy  { background: #dcfce7; color: #15803d; }
-  .pill-sell { background: #fee2e2; color: #b91c1c; }
+         color: #111827; line-height: 1.6; margin: 0; padding: 0; }
+
+  /* ── Brand header ───────────────────────────────── */
+  .agi-header { border-bottom: 3px solid #f59e0b; padding-bottom: 16px; margin-bottom: 22px; }
+  .agi-header-wordmark { font-size: 0.65rem; font-weight: 900; text-transform: uppercase;
+         letter-spacing: 0.18em; color: #92400e; margin: 0 0 4px; }
+  .agi-header-title { font-size: 1.45rem; font-weight: 900; color: #111827;
+         margin: 0 0 6px; line-height: 1.2; }
+  .agi-header-meta { font-size: 0.78rem; color: #6b7280; margin: 0; }
+  .agi-header-meta strong { color: #374151; }
+  .agi-tier-free    { display:inline-block; background:#fef3c7; color:#92400e;
+         font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.1em;
+         padding:2px 9px; border-radius:3px; border:1px solid #fde68a; }
+  .agi-tier-premium { display:inline-block; background:#111827; color:#fbbf24;
+         font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.1em;
+         padding:2px 9px; border-radius:3px; }
+
+  /* ── Typography ─────────────────────────────────── */
+  h2 { font-size: 1.15rem; font-weight: 800; color: #111827; margin: 1.6em 0 0.5em;
+       padding-bottom: 8px; border-bottom: 2px solid #fde68a; }
+  h3 { font-size: 0.97rem; font-weight: 700; color: #111827; margin: 1.4em 0 0.4em;
+       padding-left: 10px; border-left: 3px solid #f59e0b; }
+  p  { margin: 0.5em 0 0.8em; font-size: 0.92rem; color: #374151; }
+
+  /* ── Snapshot box ───────────────────────────────── */
+  .snapshot-box { background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+         border: 1px solid #fde68a; border-left: 4px solid #f59e0b;
+         border-radius: 10px; padding: 18px 22px; margin: 12px 0; }
+  .snapshot-label { font-size: 10px; font-weight: 800; text-transform: uppercase;
+         letter-spacing: 0.12em; color: #92400e; margin: 0 0 6px; }
+  .snapshot-price { font-size: 2.3rem; font-weight: 900; color: #111827; line-height: 1.1; }
+
+  /* ── Tag / pill ─────────────────────────────────── */
+  .tag { display: inline-block; font-size: 10px; font-weight: 800; text-transform: uppercase;
+         letter-spacing: .1em; color: #92400e; background: #fef3c7;
+         border: 1px solid #fde68a; border-radius: 4px; padding: 3px 9px; margin-bottom: 8px; }
+  .pill { display: inline-block; border-radius: 999px; padding: 3px 10px;
+          font-size: 11px; font-weight: 700; }
+  .pill-buy     { background: #dcfce7; color: #15803d; }
+  .pill-sell    { background: #fee2e2; color: #b91c1c; }
   .pill-neutral { background: #f3f4f6; color: #374151; }
+
+  /* ── Tables ─────────────────────────────────────── */
+  table.data { width: 100%; border-collapse: collapse; margin: 10px 0 16px;
+               border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
+  table.data th { font-size: 10px; color: #6b7280; font-weight: 800;
+         text-transform: uppercase; letter-spacing: 0.07em;
+         padding: 8px 12px; background: #f9fafb;
+         border-bottom: 1px solid #e5e7eb; text-align: left; }
+  table.data td { padding: 10px 12px; border-bottom: 1px solid #f3f4f6;
+                  font-size: 0.88rem; color: #374151; }
+  table.data tr:last-child td { border-bottom: none; }
+
+  /* ── Colours ────────────────────────────────────── */
+  .up   { color: #15803d; font-weight: 700; }
+  .down { color: #dc2626; font-weight: 700; }
+
+  /* ── CTA block ──────────────────────────────────── */
+  .cta { background: #1c1917; color: #fff; border-radius: 10px;
+         padding: 18px 22px; margin: 18px 0; border-left: 4px solid #f59e0b; }
+  .cta p { color: #d6d3d1; margin: 0; font-size: 0.88rem; line-height: 1.65; }
+  .cta strong { color: #fbbf24; }
+
+  /* ── Footer ─────────────────────────────────────── */
+  .agi-footer { margin-top: 28px; padding-top: 16px; border-top: 2px solid #fde68a;
+         font-size: 0.73rem; color: #9ca3af; line-height: 1.8; }
+  .agi-footer strong { color: #6b7280; }
+  .agi-footer a { color: #f59e0b; text-decoration: none; }
 </style>
 """
+
+# ── Brand header helper ───────────────────────────────────────────────────────
+def brand_header(title: str, date_str: str, post_type_label: str, is_premium: bool = False) -> str:
+    tier_cls  = "agi-tier-premium" if is_premium else "agi-tier-free"
+    tier_text = "Premium Edition" if is_premium else "Free Preview"
+    return (
+        '<div class="agi-header">\n'
+        '  <p class="agi-header-wordmark">Africa Gold Intelligence</p>\n'
+        f'  <p class="agi-header-title">{title}</p>\n'
+        f'  <p class="agi-header-meta">{date_str} &nbsp;·&nbsp; {post_type_label} &nbsp;·&nbsp; '
+        f'<span class="{tier_cls}">{tier_text}</span></p>\n'
+        '</div>\n'
+    )
+
+# ── Brand footer helper ───────────────────────────────────────────────────────
+def brand_footer(disclaimer: str = "Prices delayed up to 20 minutes.") -> str:
+    return (
+        '<div class="agi-footer">\n'
+        '  <strong>Africa Gold Intelligence</strong> — Daily briefing for African gold investors and traders.<br>\n'
+        f'  Not financial advice. {disclaimer}<br>\n'
+        '  <a href="https://africagoldintelligence.beehiiv.com">africagoldintelligence.beehiiv.com</a>\n'
+        '</div>\n'
+    )
 
 def pill(text):
     t = text.upper()
@@ -338,13 +406,12 @@ def build_free_content(data: dict, post_type: str, today: datetime.datetime, afr
     else:
         seasonal_teaser = ""
 
-    return BASE_STYLE + f"""
-<div class="tag">🟡 Free Preview — {day_label} {date_str}</div>
-
+    hdr = brand_header(f"Gold Market Briefing · {date_str}", day_label, POST_TYPE_LABELS.get(post_type,"Daily Briefing"), is_premium=False)
+    return BASE_STYLE + hdr + f"""
 <p>{intro_text}</p>
 
 <div class="snapshot-box">
-  <p style="margin:0 0 4px;font-size:11px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:.08em;">Today's Snapshot</p>
+  <p class="snapshot-label">Today's Snapshot</p>
   <div class="snapshot-price">{fmt_price(g_price)}</div>
   <p style="margin:6px 0 0;font-size:1rem;color:{chg_color};font-weight:700;">
     {chg_arrow} {sign_str(g_chg, ' USD')} &nbsp;({sign_str(g_pct, '%')})
@@ -930,8 +997,7 @@ def build_premium_trader_intelligence(data: dict, today: datetime.datetime, afri
     week_chg= sign_str(gold.get("week_chg_pct"), "%")
 
     return BASE_STYLE + f"""
-<h2>🔐 Premium — Trader Intelligence Briefing</h2>
-<p style="color:#6b7280;font-size:0.875rem;">Monday, {today.strftime('%B %d, %Y')} · Africa Gold Intelligence</p>
+{brand_header("Gold Trader Intelligence Briefing", today.strftime("%B %d, %Y"), "Monday Edition", is_premium=True)}
 
 <h3>📊 Trader View — XAU/USD Technical Setup</h3>
 <table class="data">
@@ -965,9 +1031,7 @@ S&amp;P 500 at {fmt_price(sp500.get('price'),'',0)} ({sign_str(sp500.get('day_ch
 {build_seasonal_signals_html((africa_data or {}).get("seasonal_signals", []))}
 {build_watchlist_html(today)}
 
-<p style="margin-top:1.5em;font-size:0.85rem;color:#374151;">
-  <em>— Africa Gold Intelligence Team · Not financial advice · Prices delayed up to 20 min</em>
-</p>
+{brand_footer("Prices delayed up to 20 minutes.")}
 """
 
 
@@ -997,8 +1061,7 @@ def build_premium_africa_regional(data: dict, today: datetime.datetime, africa_d
     karat_22 = karat.get(cur, {}).get("22K", 0)
 
     return BASE_STYLE + f"""
-<h2>🔐 Premium — Africa Regional Gold Report</h2>
-<p style="color:#6b7280;font-size:0.875rem;">Tuesday, {today.strftime('%B %d, %Y')} · Africa Gold Intelligence</p>
+{brand_header("Africa Regional Gold Report", today.strftime("%B %d, %Y"), "Tuesday Edition", is_premium=True)}
 
 <h3>🌍 Regional Spotlight — {spotlight}</h3>
 
@@ -1028,9 +1091,7 @@ one troy ounce of gold costs <strong>{sym}{g_price * (fx_rate if isinstance(fx_r
 {build_contract_news_html((contract_data or {}).get("contract_news", []))}
 {build_watchlist_html(today)}
 
-<p style="margin-top:1.5em;font-size:0.85rem;color:#374151;">
-  <em>— Africa Gold Intelligence Team · Not financial advice · Exchange rates indicative only</em>
-</p>
+{brand_footer("Exchange rates indicative only.")}
 """
 
 
@@ -1043,8 +1104,7 @@ def build_premium_aggregator(data: dict, today: datetime.datetime, africa_data: 
     g_price = gold.get("price", 0)
 
     return BASE_STYLE + f"""
-<h2>🔐 Premium — Midweek Gold Intelligence Digest</h2>
-<p style="color:#6b7280;font-size:0.875rem;">Wednesday, {today.strftime('%B %d, %Y')} · Africa Gold Intelligence</p>
+{brand_header("Midweek Gold Intelligence Digest", today.strftime("%B %d, %Y"), "Wednesday Edition", is_premium=True)}
 
 <h3>📡 Market Pulse</h3>
 <p>Gold is currently trading at {fmt_price(g_price)} —
@@ -1066,9 +1126,7 @@ RSI-14 reads {rsi_label(gold.get('rsi'))}, suggesting
 {build_contract_news_html((contract_data or {}).get("contract_news", []))}
 {build_watchlist_html(today)}
 
-<p style="margin-top:1.5em;font-size:0.85rem;color:#374151;">
-  <em>— Africa Gold Intelligence Team · Not financial advice</em>
-</p>
+{brand_footer()}
 """
 
 
@@ -1082,8 +1140,7 @@ def build_premium_karat_pricing(data: dict, today: datetime.datetime, africa_dat
     g_gram  = g_price / TROY_OZ_TO_GRAM
 
     return BASE_STYLE + f"""
-<h2>🔐 Premium — Thursday Karat Pricing Update</h2>
-<p style="color:#6b7280;font-size:0.875rem;">Thursday, {today.strftime('%B %d, %Y')} · Africa Gold Intelligence</p>
+{brand_header("Karat Pricing Update", today.strftime("%B %d, %Y"), "Thursday Edition", is_premium=True)}
 
 <p>Gold spot is <strong>{fmt_price(g_price)}/oz</strong> ({fmt_price(g_gram)}/gram in USD).
 Below is the full karat pricing table across all major Africa markets, updated at time of publication.</p>
@@ -1105,9 +1162,7 @@ even if international spot gold stays flat. This is why tracking FX alongside go
 {build_seasonal_signals_html((africa_data or {}).get("seasonal_signals", []))}
 {build_watchlist_html(today)}
 
-<p style="margin-top:1.5em;font-size:0.85rem;color:#374151;">
-  <em>— Africa Gold Intelligence Team · Not financial advice · Prices indicative only</em>
-</p>
+{brand_footer("Prices indicative only.")}
 """
 
 
@@ -1125,8 +1180,7 @@ def build_premium_macro_outlook(data: dict, today: datetime.datetime, africa_dat
     sp_dir  = "risk-on" if (sp500.get("day_chg_pct") or 0) > 0 else "risk-off"
 
     return BASE_STYLE + f"""
-<h2>🔐 Premium — Friday Macro Outlook</h2>
-<p style="color:#6b7280;font-size:0.875rem;">Friday, {today.strftime('%B %d, %Y')} · Africa Gold Intelligence</p>
+{brand_header("Friday Macro Outlook", today.strftime("%B %d, %Y"), "Friday Edition", is_premium=True)}
 
 <h3>🌐 Macro Environment for Gold</h3>
 <table class="data">
@@ -1160,9 +1214,7 @@ Next week's key catalysts: watch PCE inflation data (Friday), FOMC minutes, and 
 {build_pan_african_html((africa_data or {}).get("pan_african", {}))}
 {build_seasonal_signals_html((africa_data or {}).get("seasonal_signals", []))}
 
-<p style="margin-top:1.5em;font-size:0.85rem;color:#374151;">
-  <em>— Africa Gold Intelligence Team · Not financial advice · Have a great weekend</em>
-</p>
+{brand_footer("Have a great weekend.")}
 """
 
 
@@ -1217,8 +1269,7 @@ This is why the karat stamp on jewellery matters — it tells you the actual gol
     topic_title, topic_body = topics[week_num % len(topics)]
 
     return BASE_STYLE + f"""
-<h2>🔐 Premium — Weekend Gold Education</h2>
-<p style="color:#6b7280;font-size:0.875rem;">Saturday, {today.strftime('%B %d, %Y')} · Africa Gold Intelligence</p>
+{brand_header("Weekend Gold Education Series", today.strftime("%B %d, %Y"), "Saturday Edition", is_premium=True)}
 
 <h3>📚 {topic_title}</h3>
 {topic_body}
@@ -1228,9 +1279,7 @@ This is why the karat stamp on jewellery matters — it tells you the actual gol
 {build_africa_news_html((africa_data or {}).get("africa_news", []))}
 {build_seasonal_signals_html((africa_data or {}).get("seasonal_signals", []))}
 
-<p style="margin-top:1.5em;font-size:0.85rem;color:#374151;">
-  <em>— Africa Gold Intelligence Team · Educational content only · Not financial advice</em>
-</p>
+{brand_footer("Educational content only. Not financial advice.")}
 """
 
 
@@ -1247,8 +1296,7 @@ def build_premium_week_review(data: dict, today: datetime.datetime, africa_data:
     implied_open = g_price / (1 + (week_chg or 0) / 100)
 
     return BASE_STYLE + f"""
-<h2>🔐 Premium — Weekly Gold Market Review</h2>
-<p style="color:#6b7280;font-size:0.875rem;">Sunday, {today.strftime('%B %d, %Y')} · Africa Gold Intelligence</p>
+{brand_header("Weekly Gold Market Review", today.strftime("%B %d, %Y"), "Sunday Edition", is_premium=True)}
 
 <h3>📈 Week in Review ({week_start.strftime('%b %d')} – {today.strftime('%b %d, %Y')})</h3>
 <table class="data">
@@ -1277,9 +1325,7 @@ def build_premium_week_review(data: dict, today: datetime.datetime, africa_data:
 <p>Key data releases next week to watch: Core PCE inflation, FOMC minutes, US consumer confidence, and any central bank announcements from African nations.
 A surprise in any of these could trigger significant moves in gold.</p>
 
-<p style="margin-top:1.5em;font-size:0.85rem;color:#374151;">
-  <em>— Africa Gold Intelligence Team · Not financial advice · See you Monday</em>
-</p>
+{brand_footer("See you Monday.")}
 """
 
 
