@@ -774,7 +774,7 @@ def build_shadow_economy_html(shadow_data: dict, gold_price: float) -> str:
   </tr>"""
 
     return f"""
-<h3>👤 Africa's Shadow Gold Economy — The $29 Billion Blind Spot</h3>
+<h3>👤 Africa's Shadow Gold Economy — The ${illicit_bn:.0f} Billion Blind Spot</h3>
 <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;
             padding:12px 16px;margin:8px 0;">
   <p style="margin:0;font-size:0.9rem;color:#991b1b;">
