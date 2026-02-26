@@ -261,39 +261,85 @@ CURRENCY_NAMES = {
 
 BASE_STYLE = """
 <style>
+  /* ── Reset & base ───────────────────────────────── */
   * { box-sizing: border-box; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
          color: #111827; line-height: 1.6; margin: 0; padding: 0; }
 
-  /* ── Brand header ───────────────────────────────── */
-  .agi-header { border-bottom: 3px solid #f59e0b; padding-bottom: 16px; margin-bottom: 22px; }
-  .agi-header-wordmark { font-size: 0.65rem; font-weight: 900; text-transform: uppercase;
-         letter-spacing: 0.18em; color: #92400e; margin: 0 0 4px; }
-  .agi-header-title { font-size: 1.45rem; font-weight: 900; color: #111827;
-         margin: 0 0 6px; line-height: 1.2; }
-  .agi-header-meta { font-size: 0.78rem; color: #6b7280; margin: 0; }
-  .agi-header-meta strong { color: #374151; }
-  .agi-tier-free    { display:inline-block; background:#fef3c7; color:#92400e;
-         font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.1em;
-         padding:2px 9px; border-radius:3px; border:1px solid #fde68a; }
-  .agi-tier-premium { display:inline-block; background:#111827; color:#fbbf24;
-         font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.1em;
-         padding:2px 9px; border-radius:3px; }
+  /* ── Hero header ────────────────────────────────── */
+  .agi-hero { background: linear-gradient(135deg, #78350f 0%, #92400e 38%, #1c1917 100%);
+              border-radius: 10px 10px 0 0; overflow: hidden; }
+  .agi-hero-inner { display: flex; justify-content: space-between; align-items: center;
+                    padding: 22px 24px 18px; gap: 12px; }
+  .agi-hero-left { flex: 1; min-width: 0; }
+  .agi-hero-eyebrow { font-size: 0.6rem; font-weight: 900; text-transform: uppercase;
+                      letter-spacing: 0.2em; color: #fbbf24; margin: 0 0 6px; }
+  .agi-hero-title { font-size: 1.65rem; font-weight: 900; color: #fff;
+                    margin: 0 0 8px; line-height: 1.15; }
+  .agi-hero-meta { font-size: 0.78rem; color: #d6d3d1; margin: 0; }
+  .agi-hero-right { text-align: right; white-space: nowrap; }
+  .agi-hero-price { font-size: 2.5rem; font-weight: 900; color: #fff; line-height: 1.05; }
+  .agi-hero-change { font-size: 0.92rem; font-weight: 700; margin: 4px 0 2px; }
+  .agi-hero-sub { font-size: 0.7rem; color: #9ca3af; }
+  .agi-hero-badge { display: inline-block; margin-top: 10px;
+                    font-size: 10px; font-weight: 800; text-transform: uppercase;
+                    letter-spacing: 0.1em; padding: 3px 10px; border-radius: 3px; }
+  .agi-badge-free    { background: rgba(253,230,138,0.2); color: #fbbf24;
+                       border: 1px solid rgba(251,191,36,0.4); }
+  .agi-badge-premium { background: rgba(251,191,36,0.18); color: #fbbf24;
+                       border: 1px solid rgba(251,191,36,0.5); }
+
+  /* ── Ticker bar ─────────────────────────────────── */
+  .agi-ticker { background: #111827; border-radius: 0 0 10px 10px;
+                padding: 9px 20px; display: flex; flex-wrap: wrap;
+                gap: 6px 20px; margin-bottom: 20px; }
+  .agi-tick { font-size: 0.75rem; color: #9ca3af; }
+  .agi-tick strong { color: #f59e0b; }
+  .agi-tick .tick-up   { color: #4ade80; font-weight: 700; }
+  .agi-tick .tick-down { color: #f87171; font-weight: 700; }
+
+  /* ── Stat cards ─────────────────────────────────── */
+  .agi-stat-grid { display: grid; grid-template-columns: repeat(4, 1fr);
+                   gap: 10px; margin: 14px 0 18px; }
+  .agi-stat { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+              padding: 12px 14px; }
+  .agi-stat-label { font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
+                    letter-spacing: 0.1em; color: #9ca3af; margin: 0 0 4px; }
+  .agi-stat-value { font-size: 1.1rem; font-weight: 800; color: #111827;
+                    margin: 0 0 2px; line-height: 1.2; }
+  .agi-stat-sub   { font-size: 0.7rem; color: #9ca3af; margin: 0; }
+  .agi-stat-amber { color: #f59e0b; }
+  .agi-stat-green { color: #16a34a; }
+  .agi-stat-red   { color: #dc2626; }
+
+  /* ── Section cards ──────────────────────────────── */
+  .agi-section { background: #f0f6ff; border: 1px solid #bfdbfe;
+                 border-left: 4px solid #3b82f6; border-radius: 8px;
+                 padding: 14px 18px; margin: 16px 0 8px; }
+  .agi-section-title { font-size: 0.75rem; font-weight: 900; text-transform: uppercase;
+                       letter-spacing: 0.12em; color: #1e40af; margin: 0 0 3px; }
+  .agi-section-sub { font-size: 0.78rem; color: #3b82f6; margin: 0; }
 
   /* ── Typography ─────────────────────────────────── */
-  h2 { font-size: 1.15rem; font-weight: 800; color: #111827; margin: 1.6em 0 0.5em;
+  h2 { font-size: 1.12rem; font-weight: 800; color: #111827; margin: 1.6em 0 0.5em;
        padding-bottom: 8px; border-bottom: 2px solid #fde68a; }
-  h3 { font-size: 0.97rem; font-weight: 700; color: #111827; margin: 1.4em 0 0.4em;
+  h3 { font-size: 0.96rem; font-weight: 700; color: #111827; margin: 1.4em 0 0.4em;
        padding-left: 10px; border-left: 3px solid #f59e0b; }
   p  { margin: 0.5em 0 0.8em; font-size: 0.92rem; color: #374151; }
 
-  /* ── Snapshot box ───────────────────────────────── */
-  .snapshot-box { background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-         border: 1px solid #fde68a; border-left: 4px solid #f59e0b;
-         border-radius: 10px; padding: 18px 22px; margin: 12px 0; }
-  .snapshot-label { font-size: 10px; font-weight: 800; text-transform: uppercase;
-         letter-spacing: 0.12em; color: #92400e; margin: 0 0 6px; }
-  .snapshot-price { font-size: 2.3rem; font-weight: 900; color: #111827; line-height: 1.1; }
+  /* ── Tables ─────────────────────────────────────── */
+  table.data { width: 100%; border-collapse: collapse; margin: 10px 0 16px;
+               border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
+  table.data th { font-size: 10px; color: #6b7280; font-weight: 800; text-transform: uppercase;
+                  letter-spacing: 0.07em; padding: 8px 12px; background: #f9fafb;
+                  border-bottom: 1px solid #e5e7eb; text-align: left; }
+  table.data td { padding: 10px 12px; border-bottom: 1px solid #f3f4f6;
+                  font-size: 0.88rem; color: #374151; }
+  table.data tr:last-child td { border-bottom: none; }
+
+  /* ── Colours ────────────────────────────────────── */
+  .up   { color: #15803d; font-weight: 700; }
+  .down { color: #dc2626; font-weight: 700; }
 
   /* ── Tag / pill ─────────────────────────────────── */
   .tag { display: inline-block; font-size: 10px; font-weight: 800; text-transform: uppercase;
@@ -305,49 +351,126 @@ BASE_STYLE = """
   .pill-sell    { background: #fee2e2; color: #b91c1c; }
   .pill-neutral { background: #f3f4f6; color: #374151; }
 
-  /* ── Tables ─────────────────────────────────────── */
-  table.data { width: 100%; border-collapse: collapse; margin: 10px 0 16px;
-               border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
-  table.data th { font-size: 10px; color: #6b7280; font-weight: 800;
-         text-transform: uppercase; letter-spacing: 0.07em;
-         padding: 8px 12px; background: #f9fafb;
-         border-bottom: 1px solid #e5e7eb; text-align: left; }
-  table.data td { padding: 10px 12px; border-bottom: 1px solid #f3f4f6;
-                  font-size: 0.88rem; color: #374151; }
-  table.data tr:last-child td { border-bottom: none; }
-
-  /* ── Colours ────────────────────────────────────── */
-  .up   { color: #15803d; font-weight: 700; }
-  .down { color: #dc2626; font-weight: 700; }
-
-  /* ── CTA block ──────────────────────────────────── */
+  /* ── CTA ────────────────────────────────────────── */
   .cta { background: #1c1917; color: #fff; border-radius: 10px;
          padding: 18px 22px; margin: 18px 0; border-left: 4px solid #f59e0b; }
   .cta p { color: #d6d3d1; margin: 0; font-size: 0.88rem; line-height: 1.65; }
   .cta strong { color: #fbbf24; }
 
+  /* ── Snapshot (fallback) ────────────────────────── */
+  .snapshot-box { background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+                  border: 1px solid #fde68a; border-left: 4px solid #f59e0b;
+                  border-radius: 10px; padding: 18px 22px; margin: 12px 0; }
+  .snapshot-label { font-size: 10px; font-weight: 800; text-transform: uppercase;
+                    letter-spacing: 0.12em; color: #92400e; margin: 0 0 6px; }
+  .snapshot-price { font-size: 2.3rem; font-weight: 900; color: #111827; line-height: 1.1; }
+
   /* ── Footer ─────────────────────────────────────── */
   .agi-footer { margin-top: 28px; padding-top: 16px; border-top: 2px solid #fde68a;
-         font-size: 0.73rem; color: #9ca3af; line-height: 1.8; }
+                font-size: 0.73rem; color: #9ca3af; line-height: 1.8; }
   .agi-footer strong { color: #6b7280; }
   .agi-footer a { color: #f59e0b; text-decoration: none; }
 </style>
 """
 
-# ── Brand header helper ───────────────────────────────────────────────────────
-def brand_header(title: str, date_str: str, post_type_label: str, is_premium: bool = False) -> str:
-    tier_cls  = "agi-tier-premium" if is_premium else "agi-tier-free"
-    tier_text = "Premium Edition" if is_premium else "Free Preview"
+
+
+# ── Trading session label ────────────────────────────────────────────────────
+def _session_label() -> str:
+    import datetime as _dt
+    h = _dt.datetime.utcnow().hour
+    if 23 <= h or h < 8:   return "🔵 Asian Session"
+    if 8  <= h < 13:        return "🟡 London Session (LBMA)"
+    if 13 <= h < 21:        return "🟠 New York Session (COMEX)"
+    return "⚪ After Hours"
+
+# ── Hero header ───────────────────────────────────────────────────────────────
+def brand_header(title: str, date_str: str, post_type_label: str, is_premium: bool = False,
+                 gold_price: float = 0, gold_pct: float = 0, gold_chg: float = 0) -> str:
+    badge_cls  = "agi-badge-premium" if is_premium else "agi-badge-free"
+    badge_text = "Premium Edition" if is_premium else "Free Preview"
+    session    = _session_label()
+    if gold_price > 0:
+        pct_cls  = "tick-up"   if gold_pct >= 0 else "tick-down"
+        chg_arrow = "▲" if gold_pct >= 0 else "▼"
+        pct_sign  = "+" if gold_pct >= 0 else ""
+        price_html = (
+            f'<div class="agi-hero-right">'
+            f'  <div class="agi-hero-price">${gold_price:,.2f}</div>'
+            f'  <div class="agi-hero-change"><span class="{pct_cls}">'
+            f'    {chg_arrow} ${abs(gold_chg):,.2f} ({pct_sign}{gold_pct:.2f}%)'
+            f'  </span></div>'
+            f'  <div class="agi-hero-sub">XAU/USD &nbsp;·&nbsp; COMEX Spot</div>'
+            f'</div>'
+        )
+    else:
+        price_html = ''
     return (
-        '<div class="agi-header">\n'
-        '  <p class="agi-header-wordmark">Africa Gold Intelligence</p>\n'
-        f'  <p class="agi-header-title">{title}</p>\n'
-        f'  <p class="agi-header-meta">{date_str} &nbsp;·&nbsp; {post_type_label} &nbsp;·&nbsp; '
-        f'<span class="{tier_cls}">{tier_text}</span></p>\n'
+        '<div class="agi-hero">'
+        '  <div class="agi-hero-inner">'
+        '    <div class="agi-hero-left">'
+        '      <p class="agi-hero-eyebrow">Daily Intelligence Report</p>'
+        f'      <p class="agi-hero-title">{title}</p>'
+        f'      <p class="agi-hero-meta">{date_str} &nbsp;·&nbsp; {session}</p>'
+        f'      <span class="agi-hero-badge {badge_cls}">{badge_text}</span>'
+        '    </div>'
+        f'    {price_html}'
+        '  </div>'
         '</div>\n'
     )
 
-# ── Brand footer helper ───────────────────────────────────────────────────────
+# ── Ticker bar ────────────────────────────────────────────────────────────────
+def ticker_bar(data: dict) -> str:
+    gold   = data.get("gold",   {})
+    silver = data.get("silver", {})
+    dxy    = data.get("dxy",    {})
+    sp500  = data.get("sp500",  {})
+    btc    = data.get("btc",    {})
+    g_price = gold.get("price", 0)
+    s_price = silver.get("price", 0)
+    gs_ratio = round(g_price / s_price, 1) if s_price else 0
+
+    def tick(label, value, change_pct=None, decimals=2, prefix="$"):
+        val_str = f"{prefix}{value:,.{decimals}f}" if isinstance(value, (int,float)) and value else "—"
+        if change_pct is not None and isinstance(change_pct, (int,float)):
+            cls = "tick-up" if change_pct >= 0 else "tick-down"
+            sign = "+" if change_pct >= 0 else ""
+            chg_html = f' <span class="{cls}">({sign}{change_pct:.2f}%)</span>'
+        else:
+            chg_html = ""
+        return f'<span class="agi-tick">{label} <strong>{val_str}</strong>{chg_html}</span>'
+
+    items = []
+    if dxy.get("price"):
+        items.append(tick("DXY", dxy["price"], dxy.get("day_chg_pct"), 2, ""))
+    if silver.get("price"):
+        items.append(tick("Silver", silver["price"], silver.get("day_chg_pct"), 2))
+    if sp500.get("price"):
+        items.append(tick("S&P500", sp500["price"], sp500.get("day_chg_pct"), 0))
+    if btc.get("price"):
+        items.append(tick("BTC", btc["price"], btc.get("day_chg_pct"), 0))
+    if gs_ratio:
+        items.append(f'<span class="agi-tick">G/S Ratio <strong>{gs_ratio}</strong></span>')
+    if not items:
+        return ""
+    return '<div class="agi-ticker">' + "".join(items) + '</div>\n'
+
+# ── Stat cards ────────────────────────────────────────────────────────────────
+def stat_cards(cards: list) -> str:
+    """cards = [{"label":…, "value":…, "sub":…, "cls": "agi-stat-amber|green|red"}]"""
+    html = '<div class="agi-stat-grid">'
+    for c in cards:
+        cls = c.get("cls", "")
+        html += (
+            f'<div class="agi-stat">'
+            f'  <p class="agi-stat-label">{c["label"]}</p>'
+            f'  <p class="agi-stat-value {cls}">{c["value"]}</p>'
+            f'  <p class="agi-stat-sub">{c.get("sub","")}</p>'
+            f'</div>'
+        )
+    return html + '</div>\n'
+
+# ── Brand footer ──────────────────────────────────────────────────────────────
 def brand_footer(disclaimer: str = "Prices delayed up to 20 minutes.") -> str:
     return (
         '<div class="agi-footer">\n'
@@ -356,7 +479,6 @@ def brand_footer(disclaimer: str = "Prices delayed up to 20 minutes.") -> str:
         '  <a href="https://africagoldintelligence.beehiiv.com">africagoldintelligence.beehiiv.com</a>\n'
         '</div>\n'
     )
-
 def pill(text):
     t = text.upper()
     if "BULL" in t or t == "BUY":   return f'<span class="pill pill-buy">{text}</span>'
@@ -406,24 +528,51 @@ def build_free_content(data: dict, post_type: str, today: datetime.datetime, afr
     else:
         seasonal_teaser = ""
 
-    hdr = brand_header(f"Gold Market Briefing · {date_str}", day_label, POST_TYPE_LABELS.get(post_type,"Daily Briefing"), is_premium=False)
-    return BASE_STYLE + hdr + f"""
-<p>{intro_text}</p>
+    hdr   = brand_header("Gold Market Briefing", today.strftime("%A, %B %d, %Y"),
+                          POST_TYPE_LABELS.get(post_type, "Daily Briefing"),
+                          is_premium=False,
+                          gold_price=g_price, gold_pct=g_pct or 0, gold_chg=g_chg or 0)
+    tkr   = ticker_bar(data)
 
-<div class="snapshot-box">
-  <p class="snapshot-label">Today's Snapshot</p>
-  <div class="snapshot-price">{fmt_price(g_price)}</div>
-  <p style="margin:6px 0 0;font-size:1rem;color:{chg_color};font-weight:700;">
-    {chg_arrow} {sign_str(g_chg, ' USD')} &nbsp;({sign_str(g_pct, '%')})
-  </p>
+    # RSI stat class
+    rsi_v   = rsi or 0
+    rsi_cls = "agi-stat-red" if rsi_v >= 70 else ("agi-stat-green" if rsi_v <= 30 else "agi-stat-amber")
+    rsi_lbl = rsi_label(rsi)
+
+    # 52-week range from gold data
+    hi52 = gold.get("year_high", 0)
+    lo52 = gold.get("year_low",  0)
+    ath_pct = round((hi52 - g_price) / hi52 * 100, 1) if hi52 else 0
+
+    s_price_disp  = fmt_price(data.get("silver",{}).get("price", 0))
+    sp500_disp    = fmt_price(data.get("sp500",{}).get("price", 0), "", 0)
+
+    sc = stat_cards([
+        {"label": "RSI (14-Day)",  "value": rsi_lbl,
+         "sub": "Momentum signal", "cls": rsi_cls},
+        {"label": "52W High",      "value": fmt_price(hi52) if hi52 else "—",
+         "sub": f"{ath_pct}% below ATH" if ath_pct else "All-time high"},
+        {"label": "Silver (XAG)",  "value": s_price_disp,
+         "sub": sign_str(data.get("silver",{}).get("day_chg_pct"), "%") + " today"},
+        {"label": "S&P 500",       "value": sp500_disp,
+         "sub": sign_str(data.get("sp500",{}).get("day_chg_pct"), "%") + " today"},
+    ])
+
+    return BASE_STYLE + hdr + tkr + f"""
+<p style="margin:0 0 12px;font-size:0.93rem;color:#374151;">{intro_text}</p>
+
+<div class="agi-section">
+  <p class="agi-section-title">📊 Trader View</p>
+  <p class="agi-section-sub">Technicals &nbsp;·&nbsp; Macro Correlations &nbsp;·&nbsp; Volatility</p>
 </div>
-
+{sc}
 <table class="data">
-  <tr><th>Asset</th><th>Price</th><th>1D Change</th></tr>
+  <tr><th>Instrument</th><th>Price</th><th>1D Change</th><th style="color:#9ca3af;font-size:9px;">Context</th></tr>
   <tr>
-    <td>XAU/USD (Gold)</td>
+    <td><strong>XAU/USD (Gold)</strong></td>
     <td><strong>{fmt_price(g_price)}</strong></td>
     <td class="{'up' if (g_pct or 0) >= 0 else 'down'}">{chg_arrow} {sign_str(g_pct, '%')}</td>
+    <td style="font-size:0.8rem;color:#9ca3af;">COMEX front-month</td>
   </tr>
   <tr>
     <td>Silver (XAG/USD)</td>
@@ -431,6 +580,7 @@ def build_free_content(data: dict, post_type: str, today: datetime.datetime, afr
     <td class="{'up' if (silver.get('day_chg_pct') or 0) >= 0 else 'down'}">
       {arrow(silver.get('day_chg_pct'))} {sign_str(silver.get('day_chg_pct'), '%')}
     </td>
+    <td style="font-size:0.8rem;color:#9ca3af;">G/S ratio signal</td>
   </tr>
   <tr>
     <td>DXY (Dollar Index)</td>
@@ -438,16 +588,17 @@ def build_free_content(data: dict, post_type: str, today: datetime.datetime, afr
     <td class="{'up' if (dxy.get('day_chg_pct') or 0) >= 0 else 'down'}">
       {arrow(dxy.get('day_chg_pct'))} {sign_str(dxy.get('day_chg_pct'), '%')}
     </td>
+    <td style="font-size:0.8rem;color:#9ca3af;">Inverse gold correlation</td>
   </tr>
 </table>
 
-<p>📌 <strong>RSI-14:</strong> {rsi_label(rsi)} —
+<p style="font-size:0.88rem;color:#374151;">📌 <strong>RSI-14:</strong> {rsi_lbl} —
 {'momentum is extended; watch for a pullback.' if (rsi or 50) >= 70 else
  'oversold territory; potential reversal setup.' if (rsi or 50) <= 30 else
  'momentum is balanced — direction will be set by macro data.'}</p>
 
 <div class="cta">
-  <p><strong style="color:#fbbf24;">🔐 Unlock the full briefing below</strong></p>
+  <p><strong>🔐 Unlock the full briefing below</strong></p>
   <p>Premium subscribers get: full technical setup with support/resistance levels · karat pricing in ZAR, GHS, NGN, KES · Africa regional spotlight · African miner AISC margins · currency leverage analysis · Pan-African composite · curated Africa-specific headlines.</p>
   {seasonal_teaser}
 </div>
@@ -991,13 +1142,15 @@ def build_premium_trader_intelligence(data: dict, today: datetime.datetime, afri
 
     g_price = gold.get("price", 0)
     g_pct   = gold.get("day_chg_pct", 0)
+    g_chg   = gold.get("day_chg", 0)
     rsi     = gold.get("rsi")
     levels  = support_resistance(g_price)
     b       = bias_str(rsi, g_pct)
     week_chg= sign_str(gold.get("week_chg_pct"), "%")
 
     return BASE_STYLE + f"""
-{brand_header("Gold Trader Intelligence Briefing", today.strftime("%B %d, %Y"), "Monday Edition", is_premium=True)}
+{brand_header("Gold Trader Intelligence Briefing", today.strftime("%B %d, %Y"), "Monday Edition", is_premium=True, gold_price=g_price, gold_pct=g_pct, gold_chg=g_chg)}
+{ticker_bar(data)}
 
 <h3>📊 Trader View — XAU/USD Technical Setup</h3>
 <table class="data">
@@ -1043,6 +1196,8 @@ def build_premium_africa_regional(data: dict, today: datetime.datetime, africa_d
     fx     = data.get("fx_rates", {})
     news   = data.get("news", [])
     g_price = gold.get("price", 0)
+    g_pct   = gold.get("day_chg_pct", 0)
+    g_chg   = gold.get("day_chg", 0)
 
     # Pick spotlight country based on day of month
     spotlight = REGIONAL_ROTATION[(today.day - 1) % len(REGIONAL_ROTATION)]
@@ -1061,7 +1216,8 @@ def build_premium_africa_regional(data: dict, today: datetime.datetime, africa_d
     karat_22 = karat.get(cur, {}).get("22K", 0)
 
     return BASE_STYLE + f"""
-{brand_header("Africa Regional Gold Report", today.strftime("%B %d, %Y"), "Tuesday Edition", is_premium=True)}
+{brand_header("Africa Regional Gold Report", today.strftime("%B %d, %Y"), "Tuesday Edition", is_premium=True, gold_price=g_price, gold_pct=g_pct, gold_chg=g_chg)}
+{ticker_bar(data)}
 
 <h3>🌍 Regional Spotlight — {spotlight}</h3>
 
@@ -1102,9 +1258,12 @@ def build_premium_aggregator(data: dict, today: datetime.datetime, africa_data: 
     karat = data.get("karat_prices", {})
     news  = data.get("news", [])
     g_price = gold.get("price", 0)
+    g_pct   = gold.get("day_chg_pct", 0)
+    g_chg   = gold.get("day_chg", 0)
 
     return BASE_STYLE + f"""
-{brand_header("Midweek Gold Intelligence Digest", today.strftime("%B %d, %Y"), "Wednesday Edition", is_premium=True)}
+{brand_header("Midweek Gold Intelligence Digest", today.strftime("%B %d, %Y"), "Wednesday Edition", is_premium=True, gold_price=g_price, gold_pct=g_pct, gold_chg=g_chg)}
+{ticker_bar(data)}
 
 <h3>📡 Market Pulse</h3>
 <p>Gold is currently trading at {fmt_price(g_price)} —
@@ -1137,10 +1296,13 @@ def build_premium_karat_pricing(data: dict, today: datetime.datetime, africa_dat
     karat = data.get("karat_prices", {})
     news  = data.get("news", [])
     g_price = gold.get("price", 0)
+    g_pct   = gold.get("day_chg_pct", 0)
+    g_chg   = gold.get("day_chg", 0)
     g_gram  = g_price / TROY_OZ_TO_GRAM
 
     return BASE_STYLE + f"""
-{brand_header("Karat Pricing Update", today.strftime("%B %d, %Y"), "Thursday Edition", is_premium=True)}
+{brand_header("Karat Pricing Update", today.strftime("%B %d, %Y"), "Thursday Edition", is_premium=True, gold_price=g_price, gold_pct=g_pct, gold_chg=g_chg)}
+{ticker_bar(data)}
 
 <p>Gold spot is <strong>{fmt_price(g_price)}/oz</strong> ({fmt_price(g_gram)}/gram in USD).
 Below is the full karat pricing table across all major Africa markets, updated at time of publication.</p>
@@ -1175,12 +1337,15 @@ def build_premium_macro_outlook(data: dict, today: datetime.datetime, africa_dat
     karat = data.get("karat_prices", {})
     news  = data.get("news", [])
     g_price = gold.get("price", 0)
+    g_pct   = gold.get("day_chg_pct", 0)
+    g_chg   = gold.get("day_chg", 0)
 
     dxy_dir = "weakening" if (dxy.get("day_chg_pct") or 0) < 0 else "strengthening"
     sp_dir  = "risk-on" if (sp500.get("day_chg_pct") or 0) > 0 else "risk-off"
 
     return BASE_STYLE + f"""
-{brand_header("Friday Macro Outlook", today.strftime("%B %d, %Y"), "Friday Edition", is_premium=True)}
+{brand_header("Friday Macro Outlook", today.strftime("%B %d, %Y"), "Friday Edition", is_premium=True, gold_price=g_price, gold_pct=g_pct, gold_chg=g_chg)}
+{ticker_bar(data)}
 
 <h3>🌐 Macro Environment for Gold</h3>
 <table class="data">
@@ -1224,6 +1389,8 @@ def build_premium_educational(data: dict, today: datetime.datetime, africa_data:
     gold    = data.get("gold", {})
     karat   = data.get("karat_prices", {})
     g_price = gold.get("price", 0)
+    g_pct   = gold.get("day_chg_pct", 0)
+    g_chg   = gold.get("day_chg", 0)
 
     # Rotate educational topics by week number
     week_num = today.isocalendar()[1]
@@ -1269,7 +1436,8 @@ This is why the karat stamp on jewellery matters — it tells you the actual gol
     topic_title, topic_body = topics[week_num % len(topics)]
 
     return BASE_STYLE + f"""
-{brand_header("Weekend Gold Education Series", today.strftime("%B %d, %Y"), "Saturday Edition", is_premium=True)}
+{brand_header("Weekend Gold Education Series", today.strftime("%B %d, %Y"), "Saturday Edition", is_premium=True, gold_price=g_price, gold_pct=g_pct, gold_chg=g_chg)}
+{ticker_bar(data)}
 
 <h3>📚 {topic_title}</h3>
 {topic_body}
@@ -1289,14 +1457,17 @@ def build_premium_week_review(data: dict, today: datetime.datetime, africa_data:
     gold  = data.get("gold", {})
     karat = data.get("karat_prices", {})
     news  = data.get("news", [])
-    g_price = gold.get("price", 0)
+    g_price  = gold.get("price", 0)
+    g_pct    = gold.get("day_chg_pct", 0)
+    g_chg    = gold.get("day_chg", 0)
     week_chg = gold.get("week_chg_pct", 0)
 
     week_start = today - datetime.timedelta(days=6)
     implied_open = g_price / (1 + (week_chg or 0) / 100)
 
     return BASE_STYLE + f"""
-{brand_header("Weekly Gold Market Review", today.strftime("%B %d, %Y"), "Sunday Edition", is_premium=True)}
+{brand_header("Weekly Gold Market Review", today.strftime("%B %d, %Y"), "Sunday Edition", is_premium=True, gold_price=g_price, gold_pct=g_pct, gold_chg=g_chg)}
+{ticker_bar(data)}
 
 <h3>📈 Week in Review ({week_start.strftime('%b %d')} – {today.strftime('%b %d, %Y')})</h3>
 <table class="data">
