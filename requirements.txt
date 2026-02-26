@@ -1,0 +1,15 @@
+# Africa Gold Intelligence — Python dependencies
+# Install: pip3 install -r requirements.txt --break-system-packages
+# Upgrade:  make update
+
+# Market data
+yfinance>=0.2.36
+
+# RSS news feeds
+feedparser>=6.0.11
+
+# Browser automation (Beehiiv posting)
+playwright>=1.44.0
+
+# HTTP requests (contract news feeds, API calls)
+requests>=2.31.0

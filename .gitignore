@@ -1,0 +1,34 @@
+# ── Secrets ───────────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Runtime data ──────────────────────────────────────────────────────────────
+data/.beehiiv_session.json
+
+# ── Logs (regenerated every run — not committed) ──────────────────────────────
+logs/*.jsonl
+logs/*.png
+
+# ── Python cache ──────────────────────────────────────────────────────────────
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# ── Test / preview output ─────────────────────────────────────────────────────
+tests/*.html
+/tmp/
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ── Editors ───────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo

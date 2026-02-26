@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Unique identifier for this scheduled job -->
+    <key>Label</key>
+    <string>com.jote.gold-briefing</string>
+
+    <!-- The command to run: python3 + absolute path to the script -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>SCRIPT_PATH_PLACEHOLDER</string>
+    </array>
+
+    <!-- Environment variables — replace YOUR_APP_PASSWORD_HERE -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>GOLD_EMAIL_SENDER</key>
+        <string>jote.taddese@gmail.com</string>
+        <key>GOLD_EMAIL_PASSWORD</key>
+        <string>YOUR_APP_PASSWORD_HERE</string>
+        <key>GOLD_EMAIL_RECIPIENT</key>
+        <string>jote.taddese@gmail.com</string>
+        <key>HOME</key>
+        <string>HOME_PATH_PLACEHOLDER</string>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+
+    <!-- Run daily at 6:00 AM local time -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>6</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <!-- Log output (tail -f ~/Library/Logs/gold-briefing.log to monitor) -->
+    <key>StandardOutPath</key>
+    <string>HOME_PATH_PLACEHOLDER/Library/Logs/gold-briefing.log</string>
+    <key>StandardErrorPath</key>
+    <string>HOME_PATH_PLACEHOLDER/Library/Logs/gold-briefing-error.log</string>
+
+    <!-- Run missed jobs if the Mac was asleep at 6 AM -->
+    <key>RunAtLoad</key>
+    <false/>
+</dict>
+</plist>

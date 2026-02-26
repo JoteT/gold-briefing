@@ -1,0 +1,133 @@
+[
+  {
+    "id": "reuters_africa_01",
+    "name": "Reuters Africa Desk",
+    "email": "africa@reuters.com",
+    "org": "Reuters",
+    "type": "journalist",
+    "region": "Pan-Africa",
+    "topics": [
+      "gold",
+      "commodities",
+      "mining",
+      "African markets"
+    ],
+    "score": 90,
+    "notes": "General commodities desk \u2014 pitch Africa-specific gold data angles",
+    "last_contacted": "2026-02-24T04:53:37.914857"
+  },
+  {
+    "id": "bloomberg_africa_01",
+    "name": "Bloomberg Africa",
+    "email": "africa@bloomberg.net",
+    "org": "Bloomberg",
+    "type": "journalist",
+    "region": "Pan-Africa",
+    "topics": [
+      "gold",
+      "commodities",
+      "FX",
+      "African markets"
+    ],
+    "score": 88,
+    "notes": "Focus on data-driven angles \u2014 local currency gold pricing is unique",
+    "last_contacted": "2026-02-23T23:11:59.187568"
+  },
+  {
+    "id": "kitco_01",
+    "name": "Kitco News Editorial",
+    "email": "news@kitco.com",
+    "org": "Kitco",
+    "type": "media",
+    "region": "Global",
+    "topics": [
+      "gold",
+      "silver",
+      "precious metals"
+    ],
+    "score": 85,
+    "notes": "Pitch Africa-specific gold data as a unique angle they don't cover",
+    "last_contacted": "2026-02-23T23:11:59.187568"
+  },
+  {
+    "id": "wgc_africa_01",
+    "name": "World Gold Council \u2014 Africa",
+    "email": "info@gold.org",
+    "org": "World Gold Council",
+    "type": "institution",
+    "region": "Pan-Africa",
+    "topics": [
+      "gold demand",
+      "mining",
+      "investment",
+      "jewellery"
+    ],
+    "score": 92,
+    "notes": "Long-term partnership potential \u2014 data sharing, co-promotion",
+    "last_contacted": "2026-02-24T04:53:37.914857"
+  },
+  {
+    "id": "miningweekly_01",
+    "name": "Mining Weekly",
+    "email": "editorial@miningweekly.com",
+    "org": "Mining Weekly",
+    "type": "media",
+    "region": "South Africa",
+    "topics": [
+      "gold mining",
+      "South Africa",
+      "commodities"
+    ],
+    "score": 80,
+    "notes": "SA-focused mining publication \u2014 pitch ZAR gold price data",
+    "last_contacted": "2026-02-24T07:02:59.960801"
+  },
+  {
+    "id": "businessday_ng_01",
+    "name": "Business Day Nigeria Editorial",
+    "email": "editor@businessdayng.com",
+    "org": "Business Day Nigeria",
+    "type": "journalist",
+    "region": "Nigeria",
+    "topics": [
+      "Nigerian economy",
+      "commodities",
+      "investment"
+    ],
+    "score": 78,
+    "notes": "Pitch NGN gold pricing and Nigeria-specific content",
+    "last_contacted": "2026-02-24T07:08:31.177914"
+  },
+  {
+    "id": "techcabal_01",
+    "name": "TechCabal",
+    "email": "hello@techcabal.com",
+    "org": "TechCabal",
+    "type": "media",
+    "region": "Pan-Africa",
+    "topics": [
+      "African tech",
+      "fintech",
+      "investment"
+    ],
+    "score": 72,
+    "notes": "Digital-savvy African audience \u2014 angle: gold as digital asset / fintech",
+    "last_contacted": "2026-02-24T07:08:31.177914"
+  },
+  {
+    "id": "quartz_africa_01",
+    "name": "Quartz Africa",
+    "email": "africa@qz.com",
+    "org": "Quartz Africa",
+    "type": "journalist",
+    "region": "Pan-Africa",
+    "topics": [
+      "African business",
+      "commodities",
+      "economy"
+    ],
+    "score": 82,
+    "notes": "English-language Pan-Africa business \u2014 unique karat pricing story",
+    "last_contacted": "2026-02-24T07:02:59.960801"
+  }
+]
