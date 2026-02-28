@@ -757,6 +757,21 @@ def main():
             print(f"  ⚠️  Browser automation error: {str(e)[:150]}")
             print(f"       Falling back to email delivery.")
 
+    # ── LinkedIn Post Generator (runs after Beehiiv publish) ──────────────────
+    sep("LinkedIn · Post Generator")
+    linkedin_result = {"status": "skipped", "char_count": 0, "pending_file": ""}
+    try:
+        import linkedin_post as li_agent
+        linkedin_result = li_agent.run(data, today, post_type)
+        if linkedin_result.get("status") == "ok":
+            print(f"  ✅ LinkedIn post saved → {linkedin_result['pending_file']}")
+        else:
+            print(f"  ⚠️  LinkedIn post generator warning: {linkedin_result.get('error','unknown')}")
+    except ImportError:
+        print("  ⚠️  linkedin_post.py not found — skipping LinkedIn post generation.")
+    except Exception as e:
+        print(f"  ⚠️  LinkedIn post generator failed (non-fatal): {e}")
+
     # ═════════════════════════════════════════════════════════════════════════
     # AGENT 5 — SOCIAL AMPLIFICATION
     # ═════════════════════════════════════════════════════════════════════════
