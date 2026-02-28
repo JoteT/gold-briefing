@@ -672,6 +672,21 @@ def main():
         pp.write_text(premium_html)
         print(f"  Free content    → {fp}")
         print(f"  Premium content → {pp}")
+
+        # Generate LinkedIn post even in dry run so it can be previewed
+        sep("LinkedIn · Post Generator (dry run)")
+        try:
+            import linkedin_post as li_agent
+            li_result = li_agent.run(data, today, post_type)
+            if li_result.get("status") == "ok":
+                print(f"  ✅ LinkedIn post saved → {li_result['pending_file']}")
+            else:
+                print(f"  ⚠️  LinkedIn post generator warning: {li_result.get('error','unknown')}")
+        except ImportError:
+            print("  ⚠️  linkedin_post.py not found — skipping LinkedIn preview.")
+        except Exception as e:
+            print(f"  ⚠️  LinkedIn post generator failed (non-fatal): {e}")
+
         elapsed = (datetime.datetime.now() - run_start).total_seconds()
         log_run("DRY_RUN", {
             "post_type": post_type, "gold_price": round(g_price, 2),
