@@ -89,9 +89,44 @@ DAY_TYPES = {
 # DATA FETCHING
 # ════════════════════════════════════════════════════════════════════════════
 
+# Environment variable price overrides — set by the scheduled task agent when
+# yfinance is unavailable (e.g. network proxy blocks outbound HTTPS in VM).
+# Format: GOLD_PRICE=2950.50 GOLD_DAY_PCT=0.42 GOLD_WEEK_PCT=1.1
+_PRICE_ENV_MAP = {
+    "GC=F":     ("GOLD_PRICE",   "GOLD_DAY_PCT",   "GOLD_WEEK_PCT"),
+    "SI=F":     ("SILVER_PRICE", "SILVER_DAY_PCT",  None),
+    "DX-Y.NYB": ("DXY_PRICE",    "DXY_DAY_PCT",     None),
+    "^GSPC":    ("SP500_PRICE",  "SP500_DAY_PCT",   None),
+    "BTC-USD":  ("BTC_PRICE",    "BTC_DAY_PCT",     None),
+}
+
 def fetch_yfinance(ticker: str, period="30d") -> dict:
     """Fetch OHLCV from Yahoo Finance via yfinance.
-    Uses 30d history so RSI-14 always has enough data points (needs 15+ closes)."""
+    Uses 30d history so RSI-14 always has enough data points (needs 15+ closes).
+    Checks environment variable overrides first (set by scheduled task when
+    yfinance is blocked by a network proxy)."""
+    # ── Env var override (VM scheduled task path) ────────────────────────────
+    if ticker in _PRICE_ENV_MAP:
+        price_env, pct_env, week_env = _PRICE_ENV_MAP[ticker]
+        price_str = os.environ.get(price_env)
+        if price_str:
+            try:
+                price    = float(price_str)
+                day_pct  = float(os.environ.get(pct_env, 0) or 0)
+                week_pct = float(os.environ.get(week_env, 0) or 0) if week_env else 0.0
+                day_chg  = price * day_pct / 100
+                print(f"  [env override] {ticker}: ${price:,.2f} ({day_pct:+.2f}%)")
+                return {
+                    "price":        price,
+                    "prev":         price - day_chg,
+                    "day_chg":      day_chg,
+                    "day_chg_pct":  day_pct,
+                    "week_chg_pct": week_pct,
+                    "rsi":          None,   # not available without history
+                }
+            except (ValueError, TypeError):
+                pass  # fall through to yfinance
+    # ── Standard yfinance fetch ───────────────────────────────────────────────
     try:
         import yfinance as yf
         t = yf.Ticker(ticker)
