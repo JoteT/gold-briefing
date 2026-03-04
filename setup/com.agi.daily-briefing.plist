@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+
+    <key>Label</key>
+    <string>com.agi.daily-briefing</string>
+
+    <!-- Run: python3 orchestrator.py from the project directory -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>/Users/jotetaddese/Documents/GoldBriefing/orchestrator.py</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/jotetaddese/Documents/GoldBriefing</string>
+
+    <!-- Secrets are loaded from .env — no hardcoded keys here -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>HOME</key>
+        <string>/Users/jotetaddese</string>
+        <!-- Include Homebrew + standard bins so python3 can find packages -->
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+
+    <!-- Run daily at 6:00 AM local time -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>6</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <!-- Logs — tail -f ~/Documents/GoldBriefing/logs/launchd.log to monitor -->
+    <key>StandardOutPath</key>
+    <string>/Users/jotetaddese/Documents/GoldBriefing/logs/launchd.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/jotetaddese/Documents/GoldBriefing/logs/launchd_err.log</string>
+
+    <!-- Don't run immediately on load, only at scheduled time -->
+    <key>RunAtLoad</key>
+    <false/>
+
+</dict>
+</plist>
