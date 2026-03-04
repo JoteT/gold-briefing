@@ -76,6 +76,10 @@ if _env_file.exists():
 
 NOTIFY_EMAIL    = os.environ.get("NOTIFY_EMAIL",    "jote.taddese@gmail.com")
 NOTIFY_PASSWORD = os.environ.get("NOTIFY_PASSWORD", os.environ.get("GOLD_EMAIL_PASSWORD", ""))
+
+# ntfy.sh push notifications — free, no account required
+# Subscribe at https://ntfy.sh/agi-alerts-jote9f2k or install the ntfy app
+NTFY_TOPIC      = os.environ.get("NTFY_TOPIC", "agi-alerts-jote9f2k")
 DRY_RUN         = os.environ.get("AGI_DRY_RUN", "0") == "1" or "--dry-run" in sys.argv
 AUTO_PUBLISH    = os.environ.get("AGI_AUTO_PUBLISH", "0") == "1" or "--publish" in sys.argv
 PRINT_LOG       = "--log" in sys.argv
@@ -179,6 +183,40 @@ def check_data_quality(data: dict) -> list:
 
 
 # ── Notifications ─────────────────────────────────────────────────────────────
+
+def _push(title: str, message: str, priority: str = "default", tags: str = "") -> bool:
+    """Send a push notification via ntfy.sh (free, no account needed).
+    Install the ntfy app and subscribe to NTFY_TOPIC to receive alerts on your phone.
+    Docs: https://ntfy.sh/docs/publish/"""
+    try:
+        import urllib.request, urllib.parse
+        url = f"https://ntfy.sh/{NTFY_TOPIC}"
+        # HTTP headers must be ASCII; encode unicode chars as percent-encoded UTF-8
+        def _ascii_header(s):
+            return urllib.parse.quote(str(s), safe=" .,!?$%+-:/()[]")
+        headers = {
+            "Title":        _ascii_header(title),
+            "Priority":     priority,   # min / low / default / high / urgent
+            "Content-Type": "text/plain; charset=utf-8",
+        }
+        if tags:
+            headers["Tags"] = tags
+        req = urllib.request.Request(
+            url,
+            data=message.encode("utf-8"),
+            headers=headers,
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=8) as r:
+            ok = r.status == 200
+        if ok:
+            print(f"  ✅ Push notification sent -> ntfy.sh/{NTFY_TOPIC}")
+        return ok
+    except Exception as e:
+        # Never let a notification failure crash the pipeline
+        print(f"  ⚠️  Push notification failed (non-fatal): {e}")
+        return False
+
 
 def _send_email(subject: str, html: str) -> bool:
     if not NOTIFY_PASSWORD:
@@ -320,8 +358,28 @@ def notify_draft_ready(title, gold_price, day_pct, post_type, post_id, warnings,
     ok = _send_email(subject, html)
     print(f"  {'✅ Notification sent.' if ok else '⚠️  Notification skipped (no password).'}")
 
+    # Push notification — always sent regardless of email config
+    action = "published live" if is_live else "draft ready for review"
+    warn_note = f"\n⚠️ {len(warnings)} warning(s)" if warnings else ""
+    _push(
+        title   = f"AGI Briefing — {label}",
+        message = (f"Gold ${gold_price:,.2f} {arrow}{sign}{day_pct:.2f}%\n"
+                   f"Post {action}{warn_note}\n"
+                   f"beehiiv.com/posts?tab=draft"),
+        priority = "default",
+        tags     = "white_check_mark,gold",
+    )
+
 
 def notify_failure(stage: str, error: str):
+    # Push notification first (fast, works even if email is not configured)
+    short_err = error.splitlines()[0][:200] if error else "Unknown error"
+    _push(
+        title    = f"AGI Pipeline Failed — {stage}",
+        message  = f"Stage: {stage}\n{short_err}\n\nCheck logs/run_log.jsonl",
+        priority = "high",
+        tags     = "warning,rotating_light",
+    )
     html = f"""
     <div style="font-family:-apple-system,sans-serif;max-width:520px;
                 margin:0 auto;padding:28px 24px;">
