@@ -731,6 +731,19 @@ def main():
         print(f"  Free content    → {fp}")
         print(f"  Premium content → {pp}")
 
+        # Generate NotebookLM digest on Sunday/week_review dry runs
+        if post_type == "week_review":
+            sep("NotebookLM · Weekly Podcast Digest (dry run)")
+            try:
+                import notebooklm_digest as nlm
+                nlm_result = nlm.run(data, today, africa_data, contract_data)
+                if nlm_result.get("status") == "ok":
+                    print(f"  ✅ Digest saved → {Path(nlm_result['path']).name}  ({nlm_result['word_count']:,} words)")
+            except ImportError:
+                print("  ⚠️  notebooklm_digest.py not found — skipping.")
+            except Exception as e:
+                print(f"  ⚠️  NotebookLM digest failed (non-fatal): {e}")
+
         # Generate LinkedIn post even in dry run so it can be previewed
         sep("LinkedIn · Post Generator (dry run)")
         try:
@@ -920,6 +933,24 @@ def main():
     # ═════════════════════════════════════════════════════════════════════════
     # HUMAN OVERSIGHT GATE — Notify operator
     # ═════════════════════════════════════════════════════════════════════════
+    # ═════════════════════════════════════════════════════════════════════════
+    # NOTEBOOKLM WEEKLY DIGEST  (Sundays / week_review only)
+    # ═════════════════════════════════════════════════════════════════════════
+    if post_type == "week_review":
+        sep("NotebookLM · Weekly Podcast Digest")
+        try:
+            import notebooklm_digest as nlm
+            nlm_result = nlm.run(data, today, africa_data, contract_data)
+            if nlm_result.get("status") == "ok":
+                print(f"  ✅ Digest ready — {nlm_result['word_count']:,} words → {Path(nlm_result['path']).name}")
+                print(f"     Scheduled task will upload to NotebookLM and generate podcast.")
+            else:
+                print(f"  ⚠️  NotebookLM digest warning: {nlm_result.get('error', 'unknown')}")
+        except ImportError:
+            print("  ⚠️  notebooklm_digest.py not found — skipping.")
+        except Exception as e:
+            print(f"  ⚠️  NotebookLM digest failed (non-fatal): {e}")
+
     sep("Human Oversight Gate" if not AUTO_PUBLISH else "Notification")
     if beehiiv_ok:
         if AUTO_PUBLISH:
